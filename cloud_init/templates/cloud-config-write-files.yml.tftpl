@@ -1,0 +1,9 @@
+%{~ if length(write_files) > 0 }
+write_files:
+%{~ for file in write_files }
+  - path: ${file.remote_path}
+    owner: ${file.owner}:${file.group}
+    content: |
+      ${ indent(6,file.content) ~}
+%{~ endfor ~}
+%{~ endif }
