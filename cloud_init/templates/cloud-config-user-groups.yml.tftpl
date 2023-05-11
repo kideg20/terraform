@@ -1,0 +1,21 @@
+%{~ if length(groups) > 0 }
+groups:
+%{~ for group in groups }
+  - ${group}
+%{~ endfor }
+%{~ endif }
+
+
+%{~ if length(users) > 0 }
+users:
+%{~ for user in users }
+  - name: ${user.name}
+%{~ if user.public_key != "" }
+    ssh_authorized_keys:
+      - ${user.public_key}
+%{~ endif }
+    sudo: 'ALL=(ALL) NOPASSWD:ALL'
+    groups: ['sudo', 'docker']
+    shell: /bin/bash
+%{~ endfor }
+%{~ endif }
