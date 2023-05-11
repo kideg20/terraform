@@ -1,0 +1,7 @@
+%{~ if length(runcmd) > 0 }
+%{~ for file in runcmd }
+%{~ if file != "" }
+  - /bin/bash ${file} && rm -f ${file}
+%{~ endif }
+%{~ endfor }
+%{~ endif }
